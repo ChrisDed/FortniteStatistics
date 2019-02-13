@@ -1,0 +1,28 @@
+<div id="search-div">
+  <div class="container">
+    <div id="choose">
+      <h1>Fortnite Statistics</h1>
+      <div class="container">
+        <form (submit)="onSubmit()">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ this.dropdownItems }}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button class="dropdown-item" type="button" (click)="this.platform = 'pc'; this.dropdownItems = 'PC'">PC</button>
+              <button class="dropdown-item" type="button" (click)="this.platform = 'psn'; this.dropdownItems = 'PS4'">Playstation</button>
+              <button class="dropdown-item" type="button" (click)="this.platform = 'xbl'; this.dropdownItems = 'Xbox'">Xbox One</button>
+            </div>
+          </div>
+          <input id="searchBar" minlength="1" maxlength="30" name="name" type="text" autocomplete="off" [(ngModel)]="playerName" placeholder="Search Player">
+          <button id="searchBarBtn" class="btn" type="submit">
+            <i class="fas fa-search fa-lg"></i>
+          </button>
+        </form>
+        <div class="container">
+          <p class="text-muted text-center">E.x.: "Ninja"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

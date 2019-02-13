@@ -1,0 +1,278 @@
+<div *ngIf="this.loaded == false">
+  <div class="container">
+    <div id="loader">
+      <i style="text-align: center; display: inline-block;" class="fa fa-cog fa-7x fa-spin"></i>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.error == true">
+  <div class="card">
+    <div class="container">
+      <div class="card-body">
+        <p>{{ this.info.error }}</p>
+        <button class="btn" [routerLink]="['']">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="this.loaded == true && this.error == false">
+  <div id="user-info-card" class="card">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-md-8">
+          <div id="user-info-card-body" class="card-body">
+            <span id="platform">{{ this.platformName }}</span>
+            <p id="username">{{ this.info.epicUserHandle }}</p>
+            <div class="dropdown dropright float-right">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ this.dropdownItems }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button" (click)="this.season = 'season 6'; this.dropdownItems = 'Season 6'">Season 6</button>
+                <button *ngIf="this.info.stats.p2 || this.info.stats.p9 || this.info.stats.p10" class="dropdown-item" type="button" (click)="this.season = 'season 5'; this.dropdownItems = 'Season 5'">Season 5</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="user-nav-card" class="card">
+    <div class="container">
+      <div id="user-nav" class="card-body">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link active" style="padding-left: 0;" (click)="this.overview = true">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="this.overview = false">Recent Matches</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+    
+  <div *ngIf="this.overview == true" class="container" id="stats">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row overall">
+          <div class="col-md-12">          
+            <div class="card">
+              <div class="card-header">
+                Overall
+              </div>
+              <div class="card-body stats">
+                <div class="row">
+                  <div id="stats-row" style="display:inline-block" *ngFor="let stats of this.overallStats">
+                    <div class="col-md-12">
+                      <p class="stats-values">{{ stats[1] }}</p>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <p class="stats-values stats-key">{{ stats[0] }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                {{ this.dropdownItems }} Solo
+              </div>
+              <div class="card-body stats">
+                <div *ngIf="this.season == 'season 6'">
+                  <div *ngIf="this.info.stats.curr_p2; else no_stats" class="row">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.soloS5Stats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>                        
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="this.season == 'season 5'">
+                  <div *ngIf="this.info.stats.p2; else no_stats" class="row">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.soloStats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row duo">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                {{ this.dropdownItems }} Duo
+              </div>
+              <div class="card-body stats">
+                <div *ngIf="this.season == 'season 6'">
+                  <div *ngIf="this.info.stats.curr_p10; else no_stats" class="row">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.duoS5Stats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success  " role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="this.season == 'season 5'">
+                  <div *ngIf="this.info.stats.p10; else no_stats">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.duoStats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row squad">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                {{ this.dropdownItems }} Squad
+              </div>
+              <div class="card-body stats">
+                <div *ngIf="this.season == 'season 6'">
+                  <div *ngIf="this.info.stats.curr_p9; else no_stats" class="row">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.squadS5Stats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="this.season == 'season 5'">
+                  <div *ngIf="this.info.stats.p9; else no_stats">
+                    <div class="solo-plus-stats" style="display: inline-block" *ngFor="let stats of this.squadStats">
+                      <div style="display: inline-block" class="col-md-12" data-toggle="tooltip" data-placement="top" title="Rank: {{ stats[2] }}" onmouseenter="$(this).tooltip('show')" onclick="void(0);">
+                        <p class="stats-values">{{ stats[1] }}</p>
+                        <div class="progress">
+                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="stats-values stats-key">{{ stats[0] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row news">
+          <div class="col-lg-12">
+            <div id="news-card" class="card">
+              <div class="card-header">
+                News
+              </div>
+              <div id="news-body" class="card-body stats">
+                <div class="row">
+                  <div *ngFor="let news of this.newsObj.br" class="card">
+                    <div class="card-header news-header">
+                      {{ news.title }}
+                    </div>
+                    <div class="card-body stats">
+                      <figure class="ratio">
+                        <img src="{{ news.image }}">
+                      </figure>
+                      <p class="news-body">
+                        {{ news.body }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #no_stats>
+    <h3>No Stats Available</h3>
+  </ng-template>
+
+  <div *ngIf="this.overview == false" class="container" id="recent-matches">
+    <div class="card">
+      <div class="card-body">
+        <div *ngFor="let match of this.recentMatches" class="test">
+          <div class="row match-row">
+            <div class="col-4 col-md-2">
+              <div *ngIf="match.platform == 3">
+                <span id="platform">PC</span>
+              </div>
+              <div *ngIf="match.platform == 2">
+                <span id="platform">PS4</span>
+              </div>
+              <div *ngIf="match.platform == 1">
+                <span id="platform">Xbox</span>
+              </div>
+            </div>
+            <div class="col-4 col-md-2">
+              <div *ngIf="match.playlist == 'p2'">
+                  <i class="fa fa-user match-icon"></i>
+              </div>
+              <div *ngIf="match.playlist == 'p9'">
+                  <i class="fa fa-users match-icon"></i>
+              </div>
+              <div *ngIf="match.playlist == 'p10'">
+                  <i class="fa fa-user-friends match-icon"></i>
+              </div>
+              <p class="stats-values stats-key match-keys">Mode</p>
+            </div>
+            <div class="col-4 col-md-2">
+              <p class="stats-values match-values">{{ match.top1 }}</p>
+              <p class="stats-values stats-key match-keys">Wins</p>
+            </div>
+            <div class="col-4 col-md-2">
+              <p class="stats-values match-values">+{{ match.score }}</p>
+              <p class="stats-values stats-key match-keys">Score</p>
+            </div>
+            <div class="col-4 col-md-2">
+              <p class="stats-values match-values">{{ match.kills }}</p>
+              <p class="stats-values stats-key match-keys">Kills</p>
+            </div>
+            <div class="col-4 col-md-2">
+              <p class="stats-values match-values">{{ match.dateCollected }}</p>
+              <p class="stats-values stats-key match-keys">Date</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

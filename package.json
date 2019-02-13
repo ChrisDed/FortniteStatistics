@@ -1,0 +1,21 @@
+{
+  "name": "fortnite-statistics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KristoD/Fortnite-Statistics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KristoD/Fortnite-Statistics/issues"
+  },
+  "homepage": "https://github.com/KristoD/Fortnite-Statistics#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "fortnite-api": "^2.14.0"
+  }
+}

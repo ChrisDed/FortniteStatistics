@@ -1,0 +1,19 @@
+.navbar-brand {
+    font-size: 1.70rem;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+#contact-button {
+    margin-top: 1.10rem;
+    font-size: 1.25rem;
+    color: white;
+}
+
+#contact-button:hover {
+    cursor: pointer;
+}
+
+.row {
+    width: 100%;
+}

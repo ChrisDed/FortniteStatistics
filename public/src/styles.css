@@ -1,0 +1,15 @@
+body {
+    font-family: BurbankBigCondensed-Black,sans-serif;
+    background-image: url('./assets/fortnite-background-60-2.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-bottom: 100px;
+}
+
+@font-face {
+    font-family: 'BurbankBigCondensed-Black';
+    src: url('assets/BurbankBigCondensed-Black.otf');
+    /* font-weight: bold; */
+}
